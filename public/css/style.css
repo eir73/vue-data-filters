@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e8e8e8;
+}
+
+.header {
+    height: 45px;
+    background-color: #232323;
+}
+
+#app {
+    width: 61%;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    background-color: #fff;
+    box-shadow: 0px 3px 50px 0px rgba(0, 0, 0, 0.2);
+    padding-top: 30px;
+    margin-right: 15px;
+    height: 100%;
+}
+
+.s--controls {
+    margin-bottom: 15px;
+    border: 1px  solid rgb(230, 230, 230);
+    border-radius: 15px;
+    min-height: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.s--controls.active {
+    min-height: 218px;
+}
+
+.s--controls > div:first-child {
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-bottom: 0;
+    padding: 9px 15px;
+    background-color: #e6e6e6;
+}
+
+.s--controls img {
+    margin-right: 10px;
+}
+
+.s--controls form {
+    padding: 15px;
+}
+
+.s--controls input[type="checkbox"] {
+    margin-right: 7px;
+}
+
+.s--controls input[type="checkbox"]:checked {
+    box-sizing: border-box;
+}
+
+.s--controls input[type="checkbox"]:checked + label {
+    color: red;
+}
+
+.s--controls .s--themes {
+    padding: 15px;
+}
+
+.m--content {
+    padding-top: 45px;
+}
+
+.m--section-top {
+    margin-bottom: 50px;
+}
+
+.m--heading {
+    font-size: 26.6px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+input[type="search"] {
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    background-color: #fff;
+    background-image: url('../img/icons/search-icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    margin-right: 21px;
+}
+
+.m--tools > div {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.m--tools > div:nth-child(2) {
+    background-image: url(../img/icons/menu-grid.png);
+    margin-right: 18px;
+}
+
+.m--tools > div:nth-child(3) {
+    background-image: url(../img/icons/menu-list.png);
+}
+
+.m--videos {
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.m--videowr {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+    padding: 0 15px;
+    margin-bottom: 15px;
+}
+
+.m--video {
+    background-color: #fff;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom: 1px solid #c7c7c7;
+    border-left: 1px solid #c7c7c7;
+    border-right: 1px solid #c7c7c7;
+}
+
+.m--imgwr img {
+    width: 100%;
+}
+
+.m--title {
+    padding: 20px 15px;
+}
+
+
+.footer {
+    height: 240px;
+    background-color: #434343;
+}
