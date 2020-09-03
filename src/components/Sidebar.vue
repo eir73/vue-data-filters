@@ -1,9 +1,16 @@
 <template>
     <aside class="sidebar col col-3">
-        <div class="s--controls">
-            <div>
+        <div 
+            class="s--controls"
+            :class="{active: video.active}"
+        >
+            <div @click="toggleVideo">
                 <img :src="'../img/icons/controls-video.png'" alt="">
                 Відео
+                <i 
+                    class="fa"
+                    :class="{'fa-chevron-right' : !video.active, 'fa-chevron-down' : video.active}"
+                ></i>
             </div>
             <form ref="video">
                 <input type="checkbox" name="video" id="discount">
@@ -16,11 +23,15 @@
         </div>
         <div 
             class="s--controls"
-            :class="{active: themes}"
+            :class="{active: themes.active}"
         >
-            <div>
+            <div @click="toggleThemes">
                 <img :src="'../img/icons/controls-themes.png'" alt="">
                 Теми
+                <i 
+                    class="fa"
+                    :class="{'fa-chevron-right' : !themes.active, 'fa-chevron-down' : themes.active}"
+                ></i>
             </div>
             <div class="s--themes">
                 <p 
@@ -41,10 +52,27 @@ export default {
         video: {
             discount: [],
             popular: [],
-            new: []
+            new: [],
+            active: true
         },
-        themes: true
+        themes: {
+            active: true
+        }
     }),
+    methods: {
+        toggleVideo() {
+            this.video.active = !this.video.active
+        },
+        toggleThemes() {
+            this.themes.active = !this.themes.active
+        },
+        hideVideo() {
+            this.video.active = false
+        },
+        hideThemes() {
+            this.themes.active = false
+        }
+    },
     computed: {
         categories() {
             return ['12', '23', '34', '45', '56']

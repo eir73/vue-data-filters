@@ -16,6 +16,7 @@ body {
 #app {
     width: 61%;
     margin: 0 auto;
+    font-family: Roboto, sans-serif;
     padding: 0 15px;
     display: flex;
     flex-direction: row;
@@ -30,12 +31,16 @@ body {
 }
 
 .s--controls {
-    margin-bottom: 15px;
     border: 1px  solid rgb(230, 230, 230);
     border-radius: 15px;
     min-height: 40px;
     height: 40px;
+    transition: all ease 0.6s;
     overflow: hidden;
+}
+
+.s--controls:first-child {
+    margin-bottom: 15px;
 }
 
 .s--controls.active {
@@ -44,10 +49,19 @@ body {
 
 .s--controls > div:first-child {
     text-transform: uppercase;
+    height: 40px;
+    position: relative;
     font-size: 10px;
+    font-weight: bold;
     margin-bottom: 0;
     padding: 9px 15px;
     background-color: #e6e6e6;
+}
+
+.s--controls > div:first-child i {
+    position: absolute;
+    right: 20px;
+    line-height: 22px;
 }
 
 .s--controls img {
@@ -72,6 +86,10 @@ body {
 
 .s--controls .s--themes {
     padding: 15px;
+}
+
+.s--themes p {
+    font-size: 10px;
 }
 
 .m--content {
@@ -132,18 +150,70 @@ input[type="search"] {
     background-color: #fff;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
-    border-bottom: 1px solid #c7c7c7;
-    border-left: 1px solid #c7c7c7;
-    border-right: 1px solid #c7c7c7;
 }
 
 .m--imgwr img {
     width: 100%;
 }
 
+.m--textwr {
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom: 1px solid #c7c7c7;
+    border-left: 1px solid #c7c7c7;
+    border-right: 1px solid #c7c7c7;
+    padding-bottom: 25px;
+}
+
 .m--title {
     padding: 20px 15px;
+    font-size: 12px;
+    font-weight: bold;
 }
+
+.m--link {
+    display: block;
+    position: relative;
+    border-radius: 50px;
+    margin: 0 40px;
+    height: 34px;
+    text-transform: uppercase;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: bold;
+    padding: 11px 15px 11px 0;
+    text-align: center;
+}
+
+.m--link.watch {
+    border: 1px solid #c7c7c7;
+    color: #000;
+}
+
+.m--link.buy {
+    border: 1px solid #ed3434;
+    color: #fff;
+    background-color: #ed3434;
+}
+
+.m--link span {
+    color: #fff;
+    position: absolute;
+    text-align: center;
+    width: 34px;
+    height: 34px;
+    padding: 11px 0;
+    right: -1px;
+    top: -1px;
+    background-color: #ed3434;
+    border-radius: 50px;
+}
+
+.m--link.watch span .fa {
+    font-size: 12px;
+    font-weight: lighter;
+}
+
 
 
 .footer {
