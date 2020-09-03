@@ -1,36 +1,50 @@
 <template>
-    <div class="row">
-        <Sidebar 
-            :categories="categories"
-            :types="types"
-            @themeClick="filterThemes"
-            @checkClick="filterChecks"
-        />
-        <div class="m--content col">
-            <div class="m--section-top d-flex justify-content-between">
-                <h1 class="m--heading">{{ currentTheme | category }}</h1>
-                <div class="m--tools d-flex">
-                    <form>
-                        <input type="search" v-model="searchText">
-                    </form>
-                    <div @click="setGridView"></div>
-                    <div @click="setListView"></div>
-                </div>
-            </div>
-            <div 
-                class="m--videos d-flex"
-                :class="{grid: isGrid}"
-                :key="isGrid"
-                v-if="typesVideos.length"
+    <div>
+        <header class="header">
+            <a 
+                href="#" 
+                class="h--menu-link"
+                @click="toggleMenu"
             >
-                <Video 
-                    v-for="v in typesVideos"
-                    :key="v.id"
-                    :video="v"
+                Меню
+            </a>
+        </header>
+        <div id="app">
+            <div class="row">
+                <Sidebar 
+                    ref="menu"
+                    :categories="categories"
+                    :types="types"
+                    @themeClick="filterThemes"
+                    @checkClick="filterChecks"
                 />
-            </div>
-            <div v-else>
-                <p>На жаль, відеозаписи не знайдено</p>
+                <div class="m--content col">
+                    <div class="m--section-top d-flex justify-content-between">
+                        <h1 class="m--heading">{{ currentTheme | category }}</h1>
+                        <div class="m--tools d-flex">
+                            <form>
+                                <input type="search" v-model="searchText">
+                            </form>
+                            <div @click="setGridView"></div>
+                            <div @click="setListView"></div>
+                        </div>
+                    </div>
+                    <div 
+                        class="m--videos d-flex"
+                        :class="{grid: isGrid}"
+                        :key="isGrid"
+                        v-if="typesVideos.length"
+                    >
+                        <Video 
+                            v-for="v in typesVideos"
+                            :key="v.id"
+                            :video="v"
+                        />
+                    </div>
+                    <div v-else>
+                        <p>На жаль, відеозаписи не знайдено</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -39,6 +53,13 @@
 <style scoped>
     .row {
         width: 100%;
+    }
+
+    @media(max-width: 607px) {
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
     }
 </style>
 
@@ -55,7 +76,8 @@ export default {
         typesVideos: [],
         searchedVideos: [],
         currentTheme: 'all',
-        searchText: ''
+        searchText: '',
+        menuIsExpanded: false
     }),
     watch: {
         searchText() {
@@ -69,7 +91,14 @@ export default {
         async setListView() {
             this.isGrid = await this.$store.dispatch('setGrid', false)
         },
+        toggleMenu() {
+            this.$refs.menu.$el.style.left = this.menuIsExpanded ? '-100%' : '0'
+            this.menuIsExpanded = !this.menuIsExpanded
+        },
         filterThemes(val) {
+            if(screen.width < 607) {
+                this.toggleMenu()
+            }
             this.currentTheme = val
             if(val === 'all') {
                 this.typesVideos = this.data
@@ -80,6 +109,9 @@ export default {
             this.searchedVideos = this.typesVideos
         },
         filterChecks(checks) {
+            if(screen.width < 607) {
+                this.toggleMenu()
+            }
             this.typesVideos = this.videos.filter(el => {
                 if(checks.discount) {
                     return el.options.sale
