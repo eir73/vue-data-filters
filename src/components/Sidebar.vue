@@ -1,45 +1,63 @@
 <template>
-    <aside class="sidebar col col-3">
+    <aside class="sidebar col col-xl-3 col-lg-3 col-3">
         <div 
             class="s--controls"
-            :class="{active: video.active}"
+            :class="{active: videoActive}"
         >
             <div @click="toggleVideo">
                 <img :src="'../img/icons/controls-video.png'" alt="">
                 Відео
                 <i 
                     class="fa"
-                    :class="{'fa-chevron-right' : !video.active, 'fa-chevron-down' : video.active}"
+                    :class="{'fa-chevron-right' : !videoActive, 'fa-chevron-down' : videoActive}"
                 ></i>
             </div>
-            <form ref="video">
-                <input type="checkbox" name="video" id="discount">
-                <label for="discount">Акція ({{video.discount.length}})</label> <br>
-                <input type="checkbox" name="video" id="popular">
-                <label for="popular">Популярні ({{video.popular.length}})</label> <br>
-                <input type="checkbox" name="video" id="new">
-                <label for="new">Новинки ({{video.new.length}})</label>
+            <form>
+                <div
+                    v-for="entry in types"
+                    :key="entry[0]"
+                >
+                    <input 
+                        type="checkbox"
+                        name="video"
+                        :id="entry[0]"
+                        :disabled="!entry[1]"
+                        v-model="checks[`${entry[0]}`]"
+                    >
+                    <label 
+                        :for="entry[0]"
+                    > 
+                        {{ entry[0] | category }} ({{entry[1]}})
+                    </label> <br>
+                </div>
             </form>
         </div>
         <div 
             class="s--controls"
-            :class="{active: themes.active}"
+            :class="{active: themesActive}"
         >
             <div @click="toggleThemes">
                 <img :src="'../img/icons/controls-themes.png'" alt="">
                 Теми
                 <i 
                     class="fa"
-                    :class="{'fa-chevron-right' : !themes.active, 'fa-chevron-down' : themes.active}"
+                    :class="{'fa-chevron-right' : !themesActive, 'fa-chevron-down' : themesActive}"
                 ></i>
             </div>
             <div class="s--themes">
+                <p
+                    class="s--category"
+                    @click="showTheme('all')"
+                >
+                    Всі теми ({{catLength}})
+                </p>
                 <p 
                     class="s--category"
-                    v-for="c in categories"
-                    :key="c"
+                    v-for="entry in categories"
+                    :key="entry[0]"
+                    @click="showTheme(entry[0])"
                 >
-                    {{c}}
+                    {{ entry[0] | category }} ({{entry[1]}})
                 </p>
             </div>
         </div>
@@ -48,34 +66,48 @@
 
 <script>
 export default {
+    props: ['categories', 'types'],
     data: () => ({
-        video: {
-            discount: [],
-            popular: [],
-            new: [],
-            active: true
-        },
-        themes: {
-            active: true
+        videoActive: true,
+        themesActive: true,
+        checks: {
+            'discount': false,
+            'popular': false,
+            'nevv': false
         }
     }),
-    methods: {
-        toggleVideo() {
-            this.video.active = !this.video.active
-        },
-        toggleThemes() {
-            this.themes.active = !this.themes.active
-        },
-        hideVideo() {
-            this.video.active = false
-        },
-        hideThemes() {
-            this.themes.active = false
+    watch: {
+        checks: {
+            deep: true,
+            handler() {
+                this.$emit('checkClick', this.checks)
+            }
         }
     },
+    methods: {
+        toggleVideo() {
+            this.videoActive = !this.videoActive
+        },
+        toggleThemes() {
+            this.themesActive = !this.themesActive
+        },
+        hideVideo() {
+            this.videoActive = false
+        },
+        hideThemes() {
+            this.themesActive = false
+        },
+        showTheme(theme) {
+            this.$emit('themeClick', theme)
+        },
+    },
     computed: {
-        categories() {
-            return ['12', '23', '34', '45', '56']
+        catLength() {
+            let length = 0
+            for(let cat of this.categories) {
+                length += cat[1]
+            }
+            return length
         }
     }
 }

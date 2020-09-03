@@ -1,22 +1,36 @@
 <template>
     <div class="row">
-        <Sidebar />
+        <Sidebar 
+            :categories="categories"
+            :types="types"
+            @themeClick="filterThemes"
+            @checkClick="filterChecks"
+        />
         <div class="m--content col">
             <div class="m--section-top d-flex justify-content-between">
-                <h1 class="m--heading">Усі відео</h1>
+                <h1 class="m--heading">{{ currentTheme | category }}</h1>
                 <div class="m--tools d-flex">
                     <form>
-                        <input type="search">
+                        <input type="search" v-model="searchText">
                     </form>
-                    <div></div>
-                    <div></div>
+                    <div @click="setGridView"></div>
+                    <div @click="setListView"></div>
                 </div>
             </div>
-            <div class="m--videos d-flex">
+            <div 
+                class="m--videos d-flex"
+                :class="{grid: isGrid}"
+                :key="isGrid"
+                v-if="typesVideos.length"
+            >
                 <Video 
-                    v-for="v in videos"
-                    :key="v"
+                    v-for="v in typesVideos"
+                    :key="v.id"
+                    :video="v"
                 />
+            </div>
+            <div v-else>
+                <p>На жаль, відеозаписи не знайдено</p>
             </div>
         </div>
     </div>
@@ -34,8 +48,72 @@ import Video from '@/components/Video'
 
 export default {
     data: () => ({
-        videos: [1,2,3,4,5]
+        data: [],
+        isGrid: true,
+        categories: [],
+        videos: [],
+        typesVideos: [],
+        searchedVideos: [],
+        currentTheme: 'all',
+        searchText: ''
     }),
+    watch: {
+        searchText() {
+            this.typesVideos = this.searchedVideos.filter(el => el.title.includes(this.searchText))
+        }
+    },
+    methods: {
+        async setGridView() {
+            this.isGrid = await this.$store.dispatch('setGrid', true)
+        },
+        async setListView() {
+            this.isGrid = await this.$store.dispatch('setGrid', false)
+        },
+        filterThemes(val) {
+            this.currentTheme = val
+            if(val === 'all') {
+                this.typesVideos = this.data
+                return
+            }
+            this.typesVideos = this.data.filter(el => el.theme === val)
+            this.videos = this.typesVideos
+            this.searchedVideos = this.typesVideos
+        },
+        filterChecks(checks) {
+            this.typesVideos = this.videos.filter(el => {
+                if(checks.discount) {
+                    return el.options.sale
+                }
+                if(checks.popular) {
+                    return el.options.popular
+                }
+                if(checks.nevv) {
+                    return new Date(el.date).getMonth() === 7
+                }
+                return true
+            })
+            this.searchedVideos = this.typesVideos
+            
+        }
+    },
+    computed: {
+        types() {
+            return [
+                ['discount', this.typesVideos.filter(el => el.options.sale).length],
+                ['popular', this.typesVideos.filter(el => el.options.popular).length],
+                ['nevv', this.typesVideos.filter(el => new Date(el.date).getMonth() === 7).length]
+            ]
+        }
+    },
+    async mounted() {
+        this.data = await this.$store.dispatch('fetchData')
+        this.typesVideos = this.data
+        this.videos = this.data
+        this.searchedVideos = this.data
+        this.isGrid = await this.$store.dispatch('fetchView')
+        this.data.forEach(el => {this.categories[el.theme] = this.categories[el.theme] + 1 || 1 })
+        this.categories = Object.entries(this.categories)
+    },
     components: {
         Sidebar, Video
     }

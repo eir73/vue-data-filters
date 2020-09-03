@@ -1,15 +1,21 @@
 <template>
-    <div class="m--videowr">
+    <div 
+        class="m--videowr" 
+        :class="{grid: isGrid}"
+    >
         <div class="m--video">
             <div class="m--imgwr">
-                <img :src="'https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/1979631/original/lead_fiverr3/do-lead-generation-or-for-2-hours.jpg'" alt="">
+                <img :src="`${video.covers.main}`" alt="">
             </div>
-            <div class="m--textwr">
-                <p class="m--title">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="m--textwr d-flex">
+                <p class="m--title" v-html="video.title">
                 </p>
-                <a href="#" class="m--link buy">
-                    Придбати
+                <a 
+                    :href="video.options.link" 
+                    class="m--link"
+                    :class="{ buy: video.access, watch: !video.access}"
+                >
+                    {{video.access ? 'Придбати' : 'Дивитися'}}
                     <span><i class="fa fa-chevron-right"></i></span>
                 </a>
             </div>
@@ -19,6 +25,6 @@
 
 <script>
 export default {
-    
+    props: ['video', 'isGrid'],
 }
 </script>
