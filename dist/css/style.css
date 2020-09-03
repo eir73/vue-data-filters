@@ -274,6 +274,29 @@ input[type="search"] {
     background-color: #ed3434;
     border-radius: 50px;
 }
+input[type="checkbox"] {
+    visibility: hidden;
+  }
+input[type="checkbox"] + label:before {
+    border: 1px solid #ccc;
+    content: "\00a0";
+    display: inline-block;
+    font: 10px sans-serif;
+    height: 16px;
+    padding: 0;
+    vertical-align: top;
+    width: 16px;
+    margin-right: 7px;
+    border-radius: 3px;
+  }
+
+input[type="checkbox"]:checked + label:before {
+    background: #ed3434;
+    border: 1px solid #ed3434;
+    color: #fff;
+    content: "\2713";
+    text-align: center;
+  }
 
 .m--link.watch span .fa {
     font-size: 12px;
