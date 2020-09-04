@@ -262,12 +262,30 @@ input[type="search"] {
     background-color: #ed3434;
 }
 
+.m--link:hover, .m--link:hover span {
+    background-color: #a11313;
+    border-color: #a11313;
+    text-decoration: none;
+} 
+
+.m--link.watch:hover {
+    background-color: #fff;
+    color: #ed3434;
+    border-color: #ed3434;
+    text-decoration: none;
+}
+
+.m--link.watch:hover span {
+    background-color: #ed3434;
+}
+
 .m--link span {
     color: #fff;
     position: absolute;
     text-align: center;
     width: 34px;
     height: 34px;
+    font-size: 12px;
     padding: 11px 0;
     right: -1px;
     top: -1px;
