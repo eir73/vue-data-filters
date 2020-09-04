@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vue-data-filters/css/app.e9aab7e3.css"
   },
   {
-    "revision": "906c405c7b7df36cb1984229ac6b5133",
+    "revision": "ad28ca6da67f8693ff3b7f9322a199a1",
     "url": "/vue-data-filters/css/style.css"
   },
   {
