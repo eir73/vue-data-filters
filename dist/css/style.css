@@ -310,7 +310,7 @@ input[type="checkbox"]:checked + label:before {
 
 @media (max-width: 1600px) {
     .m--videos .m--link {
-        margin: 0 25px;
+        margin: 0 30px;
     }
 }
 
@@ -351,7 +351,7 @@ input[type="checkbox"]:checked + label:before {
     }
 
     .m--videos .m--link {
-        min-width: 95px;
+        min-width: 100px;
         height: 26px;
         padding: 7px 0;
         font-size: 9px;
@@ -414,7 +414,6 @@ input[type="checkbox"]:checked + label:before {
         position: absolute;
         left: -100%;
         width: 100%;
-        max-width: 100%;
         z-index: 100;
         transition: all ease 0.6s;
     }
