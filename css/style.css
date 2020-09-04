@@ -82,7 +82,7 @@ body {
 }
 
 .s--controls input[type="checkbox"] {
-    margin-right: 7px;
+    display: none;
 }
 
 .s--controls input[type="checkbox"]:checked {
