@@ -1,5 +1,5 @@
 <template>
-    <aside class="sidebar col col-xl-3 col-lg-3">
+    <aside class="sidebar col col-3">
         <div 
             class="s--controls"
             :class="{active: videoActive}"
